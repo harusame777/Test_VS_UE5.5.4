@@ -24,7 +24,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test")
-	int32 TestValue = 50;
+	int32 TestValue = 200;
 
 	UFUNCTION(BlueprintCallable, Category = "Test")
 	void TestFunction(int32 a);
