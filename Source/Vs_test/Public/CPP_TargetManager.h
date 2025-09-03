@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/WorldSubsystem.h"
+#include "CPP_Target.h"
 #include "CPP_TargetManager.generated.h"
 
 /**
@@ -23,7 +24,21 @@ public:
 	//終了関数
 	virtual void Deinitialize() override;
 
+	//ターゲットアクター登録関数
+	UFUNCTION(BlueprintCallable, Category = "TargetManagerBP")
+	void RegisterTargetActor(ACPP_Target* NewTarget);
+
+	//ターゲットアクター解除関数
+	UFUNCTION(BlueprintCallable, Category = "TargetManagerBP")
+	void UnRegisterTargetActor(ACPP_Target* RemoveTarget);
+
 	//テスト用レベル名
 	UPROPERTY(BlueprintReadWrite, Category = "Level")
 	FString TestLevelName;
+
+private:
+
+	int32 TargetNum = 0;
+
+	TArray<TWeakObjectPtr<ACPP_Target>> TargetsArray;
 };
