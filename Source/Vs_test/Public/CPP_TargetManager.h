@@ -28,21 +28,27 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "TargetManagerBP")
 	void SpawnAndRegisterTargetActor(FVector SpawnLocation);
 
-	//ターゲットアクター登録関数
+	//ターゲット削除
 	UFUNCTION(BlueprintCallable, Category = "TargetManagerBP")
-	void RegisterTargetActor(ACPP_Target* NewTarget);
+	void DestroyAndUnRegisterTargetActor(ACPP_Target* RemoveTarget);
 
 	//ターゲットアクター解除関数
 	UFUNCTION(BlueprintCallable, Category = "TargetManagerBP")
 	void UnRegisterTargetActor(ACPP_Target* RemoveTarget);
 
+	//ターゲット数取得関数
+	UFUNCTION(BlueprintCallable, Category = "TargetManagerBP")
+	int32 GetTargetsNum();
+
 	//テスト用レベル名
 	UPROPERTY(BlueprintReadWrite, Category = "Level")
 	FString TestLevelName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TargetManagerBP")
+	TArray<ACPP_Target*> TargetsArray;
 
 private:
 
 	int32 TargetNum = 0;
 
-	TArray<TWeakObjectPtr<ACPP_Target>> TargetsArray;
 };

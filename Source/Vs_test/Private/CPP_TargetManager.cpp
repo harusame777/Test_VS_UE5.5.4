@@ -47,19 +47,26 @@ void UCPP_TargetManager::SpawnAndRegisterTargetActor(FVector SpawnLocation)
 	}
 }
 
-void UCPP_TargetManager::RegisterTargetActor(ACPP_Target* NewTarget)
+void UCPP_TargetManager::DestroyAndUnRegisterTargetActor(ACPP_Target* RemoveTarget)
 {
-	if (NewTarget)
+	if (RemoveTarget)
 	{
-		TargetsArray.Add(NewTarget);
-
-		TargetNum++;
-
-		UE_LOG(LogTemp, Log, TEXT("TargetNum : %d"), TargetNum);
+		TargetsArray.Remove(RemoveTarget);
+		RemoveTarget->Destroy();
+		UE_LOG(LogTemp, Log, TEXT("Destroy Target Actor"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Log, TEXT("RemoveTarget is null"));
 	}
 }
 
 void UCPP_TargetManager::UnRegisterTargetActor(ACPP_Target* RemoveTarget)
 {
+	TargetsArray.Remove(RemoveTarget);
+}
 
+int32 UCPP_TargetManager::GetTargetsNum()
+{
+	return TargetsArray.Num();
 }
