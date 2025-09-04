@@ -27,6 +27,26 @@ void UCPP_TargetManager::Deinitialize()
 	Super::Deinitialize();
 }
 
+void UCPP_TargetManager::SpawnAndRegisterTargetActor(FVector SpawnLocation)
+{
+
+	//ターゲットアクターのクラスをロードする
+	UClass* TargetClass = LoadClass<ACPP_Target>(nullptr, TEXT("/Game/Blueprints/BP_Target.BP_Target_C"));
+
+	if (TargetClass)
+	{
+		GetWorld()->SpawnActor<ACPP_Target>(TargetClass, SpawnLocation, FRotator::ZeroRotator);
+
+		UE_LOG(LogTemp, Log, TEXT("Spawn Target Actor"));
+
+		TargetsArray.Add(Cast<ACPP_Target>(TargetClass));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Log, TEXT("Failed to load Target Class"));
+	}
+}
+
 void UCPP_TargetManager::RegisterTargetActor(ACPP_Target* NewTarget)
 {
 	if (NewTarget)

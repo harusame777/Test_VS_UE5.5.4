@@ -24,6 +24,10 @@ public:
 	//終了関数
 	virtual void Deinitialize() override;
 
+	//ターゲット生成
+	UFUNCTION(BlueprintCallable, Category = "TargetManagerBP")
+	void SpawnAndRegisterTargetActor(FVector SpawnLocation);
+
 	//ターゲットアクター登録関数
 	UFUNCTION(BlueprintCallable, Category = "TargetManagerBP")
 	void RegisterTargetActor(ACPP_Target* NewTarget);
