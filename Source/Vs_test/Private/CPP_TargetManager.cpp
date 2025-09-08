@@ -35,15 +35,16 @@ void UCPP_TargetManager::SpawnAndRegisterTargetActor(FVector SpawnLocation)
 
 	if (TargetClass)
 	{
-		GetWorld()->SpawnActor<ACPP_Target>(TargetClass, SpawnLocation, FRotator::ZeroRotator);
+		//’ˆÓF”z—ñ“™‚É“ü‚ê‚éÛ‚Í‚¿‚á‚ñ‚Æ–ß‚è’l‚ðŽæ“¾‚·‚é‚±‚Æ
+		AActor* Spawned = GetWorld()->SpawnActor<ACPP_Target>(TargetClass, SpawnLocation, FRotator::ZeroRotator);
 
-		UE_LOG(LogTemp, Log, TEXT("Spawn Target Actor"));
+		UE_LOG(LogTemp, Log, TEXT("TargetManagerLog: Spawn Target Actor"));
 
-		TargetsArray.Add(Cast<ACPP_Target>(TargetClass));
+		TargetsArray.Add(Cast<ACPP_Target>(Spawned));
 	}
 	else
 	{
-		UE_LOG(LogTemp, Log, TEXT("Failed to load Target Class"));
+		UE_LOG(LogTemp, Log, TEXT("TargetManagerLog: Failed to load Target Class"));
 	}
 }
 
@@ -51,13 +52,22 @@ void UCPP_TargetManager::DestroyAndUnRegisterTargetActor(ACPP_Target* RemoveTarg
 {
 	if (RemoveTarget)
 	{
-		TargetsArray.Remove(RemoveTarget);
 		RemoveTarget->Destroy();
-		UE_LOG(LogTemp, Log, TEXT("Destroy Target Actor"));
+
+		if (TargetsArray.Remove(RemoveTarget) > 0)
+		{
+			UE_LOG(LogTemp, Log, TEXT("TargetManagerLog: Remove Target Actor"));
+		}
+		else
+		{
+			UE_LOG(LogTemp, Log, TEXT("TargetManagerLog: Failed Remove Target Actor"));
+		}
+
+		UE_LOG(LogTemp, Log, TEXT("TargetManagerLog: Destroy Target Actor"));
 	}
 	else
 	{
-		UE_LOG(LogTemp, Log, TEXT("RemoveTarget is null"));
+		UE_LOG(LogTemp, Log, TEXT("TargetManagerLog: RemoveTarget is null"));
 	}
 }
 
