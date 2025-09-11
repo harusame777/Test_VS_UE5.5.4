@@ -13,6 +13,10 @@ ACPP_TargetSpawnVolume::ACPP_TargetSpawnVolume()
 
 	SpawnArea = CreateDefaultSubobject<UBoxComponent>(TEXT("SpawnArea"));
 	RootComponent = SpawnArea;
+
+	//“–‚½‚è”»’èíœ
+	SpawnArea->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	SpawnArea->SetGenerateOverlapEvents(false);
 }
 
 FVector ACPP_TargetSpawnVolume::GetRandomPointInVolume() const
